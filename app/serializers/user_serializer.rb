@@ -1,4 +1,4 @@
 class UserSerializer < ActiveModel::Serializer
-    attributes :id, :first_name, :last_name, :email
-    has_many :bills
+    attributes :id, :first_name, :last_name, :bill_id
+    belongs_to :bill
 end

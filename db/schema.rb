@@ -10,27 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_25_192934) do
+ActiveRecord::Schema.define(version: 2021_09_21_165620) do
 
   create_table "bills", force: :cascade do |t|
     t.string "company_name"
     t.string "due_date"
     t.string "amount_due"
     t.string "notes"
-    t.boolean "paid_status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_bills_on_user_id"
+    t.string "slug"
+    t.string "paid_status"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "password_digest"
     t.string "first_name"
     t.string "last_name"
-    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "bill_id"
+    t.index ["bill_id"], name: "index_users_on_bill_id"
   end
 
+  add_foreign_key "users", "bills"
 end
