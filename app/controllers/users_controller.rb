@@ -54,7 +54,7 @@ class UsersController < ApplicationController
     def create
         @user = @bill.users.new(user_params)
         if @user.save
-            render json: @user
+            render json: @bill
         else
             render json: {error: 'Email is already in use.'}, status: 422
         end

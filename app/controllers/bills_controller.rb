@@ -55,17 +55,28 @@ class BillsController < ApplicationController
         end
     end
 
+    def show 
+        bill = Bill.find_by(slug: params[:slug])
+        render json: bill
+    end
+
     def update
-        @user = User.find_by(id: params[:id])
-        @bill = Bill.find(@user.bill_id)
-        @bill.update(bill_params)
-        render json: user
+        @bill = Bill.find_by(id: params[:id])
+        if @bill.update(due_date: params[:bill][:due_date], amount_due: params[:bill][:amount_due], notes: params[:bill][:notes], paid_status: params[:bill][:paid_status], company_name: params[:bill][:company_name])
+            @bill.save
+            render json: @bill
+        else
+            render json: {error: "Wont work."}, status: 422
+        end
     end
 
     def destroy
-        bill = Bill.find_by(id: params[:id])
-        bill.destroy
-        render json: bill
+        @bill = Bill.find_by(id: params[:id])
+        if @bill.destroy
+            head :no_content
+        else
+        render json: {error: "Nope"}, status: 422
+        end
     end
 
     private

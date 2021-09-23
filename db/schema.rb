@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_21_165620) do
+ActiveRecord::Schema.define(version: 2021_09_23_192828) do
 
   create_table "bills", force: :cascade do |t|
     t.string "company_name"
@@ -28,9 +28,6 @@ ActiveRecord::Schema.define(version: 2021_09_21_165620) do
     t.string "last_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "bill_id"
-    t.index ["bill_id"], name: "index_users_on_bill_id"
   end
 
-  add_foreign_key "users", "bills"
 end
