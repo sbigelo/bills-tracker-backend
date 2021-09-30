@@ -1,5 +1,6 @@
 class Bill < ApplicationRecord
-    has_many :users, dependent: :destroy
+    include ActiveModel::Serializers::JSON
+    has_many :users
     validates :company_name, presence: true
     before_create :slugify
 

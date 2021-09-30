@@ -52,11 +52,17 @@ class UsersController < ApplicationController
     end
 
     def create
-        @user = @bill.users.new(user_params)
+        # @user = @bill.users.new(user_params)
+        # if @user.save
+        #     render json: @bill
+        # else
+        #     render json: {error: 'Email is already in use.'}, status: 422
+        # end
+        @user = User.new(user_params)
         if @user.save
-            render json: @bill
+            render json: @user, include: ['users']
         else
-            render json: {error: 'Email is already in use.'}, status: 422
+            render json: @user.errors
         end
     end 
 
@@ -64,7 +70,7 @@ class UsersController < ApplicationController
         @user = User.find_by(id: params[:id])
         @bill = Bill.find(@user.bill_id)
         if @user.destroy
-            render json: @bill
+            render json: @bill, include: ['users']
         else
             render json: {error: 'User not found.'}, status: 422
         end
