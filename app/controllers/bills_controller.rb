@@ -8,7 +8,7 @@ class BillsController < ApplicationController
     def create
         @bill = Bill.new(bill_params)
         if @bill.save
-            render json: @bills, include: ['users']
+            render json: @bill, include: ['users']
         else
             render json: {error: 'Can not create bill.'}, status: 422
         end
