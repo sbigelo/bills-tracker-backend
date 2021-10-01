@@ -23,7 +23,7 @@ class BillsController < ApplicationController
         @bill = Bill.find_by(id: params[:id])
         if @bill.update(due_date: params[:bill][:due_date], amount_due: params[:bill][:amount_due], notes: params[:bill][:notes], paid_status: params[:bill][:paid_status], company_name: params[:bill][:company_name])
             @bill.save
-            render json: @bill
+            render json: @bill, include: ['users']
         else
             render json: {error: "Wont work."}, status: 422
         end
